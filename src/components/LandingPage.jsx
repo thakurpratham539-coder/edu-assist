@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Globe, ArrowRight, Bot, Code, Zap, GraduationCap } from 'lucide-react';
 import styles from './LandingPage.module.css';
 
-const LandingPage = ({ onLaunch }) => {
+const LandingPage = ({ onLaunch, toggleTheme, theme }) => {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -24,7 +24,10 @@ const LandingPage = ({ onLaunch }) => {
           </div>
           <span>EduAssist Neo</span>
         </div>
-        <button className={styles.exploreBtn} onClick={handleExploreCode}>
+        <button className="theme-toggle" onClick={toggleTheme} title="Toggle theme">
+            {theme === 'dark' ? '☀️' : '🌙'}
+          </button>
+          <button className={styles.exploreBtn} onClick={handleExploreCode}>
           <Globe size={16} />
           Explore Code
         </button>
