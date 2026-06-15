@@ -14,7 +14,7 @@ const ALL_SUGGESTIONS = [
   "What are Scaler's top placement companies?",
   "What makes Scaler different from IITs?",
 
-  // NST
+  //NST
   "What is the fee structure at NST?",
   "How to crack the NSAT exam?",
   "Does NST offer women-only scholarships?",
