@@ -1,0 +1,34 @@
+{
+  "Scaler": {
+    "fee": "Approximately INR 17 lakh total for the UG program.",
+    "scholarships": "Merit-based (JEE, BITSAT, SAT, sports) and Need-based scholarships.",
+    "placements": "100% placement assistance, mandatory internship, recruiters include Google, Microsoft, Amazon.",
+    "selection criteria": "National Scholarship & Entrance Test (NSET), followed by an interview.",
+    "highlights": "Located in Bangalore, 10-acre campus, focus on practical learning.",
+    "location": "Bangalore"
+  },
+  "NST": {
+    "fee": "INR 23.25 Lakhs to INR 24.4 Lakhs for 4 years.",
+    "scholarships": "JEE Excellence (100%), Merit-based, Young Women Leader, Extraordinary Achievement.",
+    "placements": "Strong industry focus, 2500+ hiring companies, paid internships early on.",
+    "selection criteria": "Newton School Admission Test (NSAT) and interview.",
+    "highlights": "Partners with Rishihood, Ajeenkya DY Patil, and S-VYASA Universities. 1:1 mentorship.",
+    "location": "Delhi NCR, Pune, Bengaluru"
+  },
+  "Vedam": {
+    "fee": "Approximately INR 18 Lakhs for 4 years.",
+    "scholarships": "Merit-Based (up to 100%), Women in Tech (up to 20%), Need-Based (up to 30%).",
+    "placements": "New institute (est. 2025) so no historical data, but emphasizes 6-month paid internships.",
+    "selection criteria": "Vedam Scholastic Aptitude Test (VSAT) and personal interview.",
+    "highlights": "New-age tech college, coding from day one, mentored by ex-Google/Microsoft professionals.",
+    "location": "Gurugram, Pune"
+  },
+  "NIAT": {
+    "fee": "Ranges from INR 8 lakh to INR 18 lakh depending on partner university.",
+    "scholarships": "Up to 100% merit-based on the upskilling program fees based on NAT.",
+    "placements": "Placement and career support provided, strong NxtWave hiring network.",
+    "selection criteria": "Partner university admission + NxtWave Assessment Test (NAT) & counseling.",
+    "highlights": "Upskilling program integrated with UGC-recognized partner universities.",
+    "location": "30+ partner universities across India"
+  }
+}
