@@ -321,47 +321,171 @@
   gap: 1rem;
   padding: 1rem 1.4rem;
   border-radius: 16px;
-  background: rgba(24, 24, 27, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(16px);
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255,255,255,0.05);
+  background: rgba(18, 18, 20, 0.82);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  backdrop-filter: blur(20px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255,255,255,0.06);
   animation: float 6s ease-in-out infinite;
   min-width: 230px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  overflow: hidden;
 }
 
+/* Animated shimmer line at top of each card */
+.floatingCard::before {
+  content: '';
+  position: absolute;
+  top: 0; left: -100%; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.8), rgba(59, 130, 246, 0.8), transparent);
+  animation: shimmerLine 3s linear infinite;
+}
+
+/* Subtle ambient glow */
+.floatingCard::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  background: radial-gradient(circle at 30% 50%, rgba(139, 92, 246, 0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+@keyframes shimmerLine {
+  0%   { left: -100%; }
+  100% { left: 100%; }
+}
+
+.floatingCard:nth-child(2)::before { animation-delay: -0.75s; }
+.floatingCard:nth-child(3)::before { animation-delay: -1.5s; }
+.floatingCard:nth-child(4)::before { animation-delay: -2.25s; }
+.floatingCard:nth-child(5)::before { animation-delay: -3s; }
+
 .floatingCard:hover {
-  box-shadow: 0 12px 40px rgba(139, 92, 246, 0.25), inset 0 1px 0 rgba(255,255,255,0.08);
+  box-shadow: 0 16px 48px rgba(139, 92, 246, 0.3), inset 0 1px 0 rgba(255,255,255,0.1);
+  border-color: rgba(139, 92, 246, 0.35);
 }
 
 .cardIcon {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 12px;
+  width: 46px;
+  height: 46px;
+  border-radius: 13px;
   background: rgba(139, 92, 246, 0.12);
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   flex-shrink: 0;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  animation: iconPop 4s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.floatingCard:nth-child(3) .cardIcon { animation-delay: -1s; }
+.floatingCard:nth-child(4) .cardIcon { animation-delay: -2s; }
+.floatingCard:nth-child(5) .cardIcon { animation-delay: -3s; }
+
+@keyframes iconPop {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(139, 92, 246, 0); }
+  50%       { transform: scale(1.08); box-shadow: 0 0 12px 4px rgba(139, 92, 246, 0.2); }
 }
 
 .floatingCard h4 {
   font-size: 0.9rem;
-  font-weight: 600;
+  font-weight: 700;
   margin-bottom: 0.2rem;
   color: var(--text-primary);
+  position: relative;
+  z-index: 1;
 }
 
 .floatingCard p {
-  font-size: 0.78rem;
+  font-size: 0.76rem;
   color: var(--text-secondary);
+  position: relative;
+  z-index: 1;
+}
+
+/* Live dot indicator inside each card */
+.cardLiveDot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  margin-right: 5px;
+  vertical-align: middle;
+  animation: cardPulse 2s ease infinite;
+}
+
+.floatingCard:nth-child(3) .cardLiveDot { background: #f59e0b; animation-delay: -0.5s; }
+.floatingCard:nth-child(4) .cardLiveDot { background: #3b82f6; animation-delay: -1s; }
+.floatingCard:nth-child(5) .cardLiveDot { background: #ec4899; animation-delay: -1.5s; }
+
+@keyframes cardPulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.5); }
+  50%       { opacity: 0.6; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
 }
 
 @keyframes float {
-  0%   { transform: translateY(0px); }
-  50%  { transform: translateY(-14px); }
-  100% { transform: translateY(0px); }
+  0%   { transform: translateY(0px) rotate(0deg); }
+  33%  { transform: translateY(-12px) rotate(0.4deg); }
+  66%  { transform: translateY(-6px) rotate(-0.3deg); }
+  100% { transform: translateY(0px) rotate(0deg); }
+}
+
+/* Orbiting particle around hero visual */
+.glowOrb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.1) 0%, transparent 65%);
+  pointer-events: none;
+  animation: orbPulse 5s ease-in-out infinite;
+}
+
+@keyframes orbPulse {
+  0%, 100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 0.7; transform: translate(-50%, -50%) scale(1.1); }
+}
+
+/* Orbit ring */
+.heroVisual::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  border: 1px dashed rgba(139, 92, 246, 0.12);
+  transform: translate(-50%, -50%);
+  animation: spin 30s linear infinite;
+  pointer-events: none;
+}
+
+.heroVisual::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 520px;
+  border-radius: 50%;
+  border: 1px dashed rgba(59, 130, 246, 0.08);
+  transform: translate(-50%, -50%);
+  animation: spin 45s linear infinite reverse;
+  pointer-events: none;
+}
+
+@keyframes spin {
+  from { transform: translate(-50%, -50%) rotate(0deg); }
+  to   { transform: translate(-50%, -50%) rotate(360deg); }
 }
 
 /* ── Shared fade-up animation ────────────────────────── */
