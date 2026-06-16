@@ -174,32 +174,58 @@ function generateComparisonResponse(colleges, dataList) {
 export function generateChatResponse(query) {
   const normalized = normalizeQuery(query);
 
-  // Check for exact/near-exact match in specific answers
-  for (const [key, fn] of Object.entries(SPECIFIC_ANSWERS)) {
-    if (normalized === key || normalized.includes(key) || key.includes(normalized)) {
-      return { intent: "specific", response: fn() };
+  // Guard: handle short/greeting queries FIRST before any substring matching,
+  // since short words like "hi" can falsely match inside longer keys (e.g. "scholarship").
+  const earlyIntent = detectIntent(query);
+  if (earlyIntent === "greeting" || normalized.split(' ').length <= 2) {
+    if (earlyIntent === "greeting") {
+      return { intent: "greeting", response: "Hello! I'm EduAssist Neo. I can help you compare Scaler, NST, Vedam, and NIAT — fees, scholarships, placements, and more. How can I help?" };
     }
   }
 
-  // Fuzzy match — try partial overlap
-  const queryWords = new Set(normalized.split(' '));
-  let bestKey = null;
-  let bestScore = 0;
-  for (const key of Object.keys(SPECIFIC_ANSWERS)) {
-    const keyWords = key.split(' ');
-    const overlap = keyWords.filter(w => queryWords.has(w)).length;
-    const score = overlap / keyWords.length;
-    if (score > 0.6 && score > bestScore) {
-      bestScore = score;
-      bestKey = key;
+  // Check for exact/near-exact match in specific answers
+  // Require normalized query to be reasonably long to avoid false substring matches
+  if (normalized.length >= 8) {
+    for (const [key, fn] of Object.entries(SPECIFIC_ANSWERS)) {
+      if (normalized === key) {
+        return { intent: "specific", response: fn() };
+      }
+    }
+    for (const [key, fn] of Object.entries(SPECIFIC_ANSWERS)) {
+      const normWords = normalized.split(' ').filter(Boolean);
+      const keyWords = key.split(' ');
+      // Whole-word containment check, not raw substring — avoids "hi" matching inside "scholarship"
+      const isWordSubset = (smaller, larger) => smaller.every(w => larger.includes(w));
+      if (normWords.length >= 3 && isWordSubset(normWords, keyWords)) {
+        return { intent: "specific", response: fn() };
+      }
+      if (keyWords.length >= 3 && isWordSubset(keyWords, normWords)) {
+        return { intent: "specific", response: fn() };
+      }
     }
   }
-  if (bestKey) {
-    return { intent: "specific", response: SPECIFIC_ANSWERS[bestKey]() };
+
+  // Fuzzy match — try partial overlap (only for queries with enough words to be meaningful)
+  const queryWords = new Set(normalized.split(' ').filter(Boolean));
+  if (queryWords.size >= 3) {
+    let bestKey = null;
+    let bestScore = 0;
+    for (const key of Object.keys(SPECIFIC_ANSWERS)) {
+      const keyWords = key.split(' ');
+      const overlap = keyWords.filter(w => queryWords.has(w)).length;
+      const score = overlap / keyWords.length;
+      if (score > 0.6 && score > bestScore) {
+        bestScore = score;
+        bestKey = key;
+      }
+    }
+    if (bestKey) {
+      return { intent: "specific", response: SPECIFIC_ANSWERS[bestKey]() };
+    }
   }
 
   // Fall back to intent + college extraction
-  const intent = detectIntent(query);
+  const intent = earlyIntent;
   const colleges = extractColleges(query);
   const retrievedData = colleges.reduce((acc, c) => {
     acc[c] = COLLEGES_DATA[c] || {};
