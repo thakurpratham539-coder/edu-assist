@@ -16,7 +16,11 @@
 
 <br />
 
-### 🌐 [**→ Try the Live Demo ←**](https://livedashboardsite.github.io/edu-assist-neo/)
+<br />
+
+<a href="https://livedashboardsite.github.io/edu-assist-neo/">
+  <img src="https://img.shields.io/badge/🌐%20LIVE%20DEMO-Click%20to%20Explore-8b5cf6?style=for-the-badge&labelColor=18181b&logo=googlechrome&logoColor=white" alt="Live Demo" height="50"/>
+</a>
 
 </div>
 
@@ -86,7 +90,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:5173](http://localhost:5173) in your browser.
+Open the link in the browser.
 
 ### Build for Production
 
