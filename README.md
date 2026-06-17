@@ -19,7 +19,7 @@
 
 <div align="center">
 
-[![Live Demo](https://img.shields.io/badge/🚀_LIVE_DEMO-Click_to_Explore-8b5cf6?style=for-the-badge&labelColor=18181b)](https://livedashboardsite.github.io/edu-assist-neo/)
+[![Live Demo](https://img.shields.io/badge/🚀_LIVE_DEMO-Click_to_Explore-8b5cf6?style=for-the-badge&labelColor=18181b)](https://livedashboardsite.github.io/edu-assist/)
 
 <img src="https://readme-typing-svg.demolab.com/?lines=%E2%9A%A1+Live+and+deployed+on+GitHub+Pages;%F0%9F%9A%80+Click+above+to+try+it+now!&font=Fira+Code&center=true&width=450&height=35&color=10B981&vCenter=true&size=15&pause=2000" alt="status" />
 
